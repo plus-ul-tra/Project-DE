@@ -15,6 +15,8 @@ public class InputManager
             // Key 동작이 있는 경우 Invoke()
             KeyAction.Invoke();
         }
+
+        // 마우스 클릭이 있는 경우 밑에 추가
         
     }
 }
