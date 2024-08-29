@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
 
     // 현재 타이핑 중인지 여부를 나타내는 플래그
     private bool isTyping;
+    private bool isInitialized = false;
 
     // 싱글톤 패턴을 위한 인스턴스 변수
     //public static DialogueManager instance;
@@ -35,20 +36,13 @@ public class DialogueManager : MonoBehaviour
     // 싱글톤 인스턴스를 설정하는 메서드
     private void Awake()
     {
-        //// instance가 비어있으면 이 오브젝트를 instance로 설정
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //    // 씬이 변경되어도 이 오브젝트를 파괴하지 않음
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    // 이미 instance가 설정된 경우, 중복된 오브젝트는 파괴
-        //    Destroy(gameObject);
-        //}
-        // PlayerController 컴포넌트를 찾아서 참조
         playerMove = FindObjectOfType<PlayerController>();
+        GameObject dialogueObj = GameObject.Find("Dialogue");
+        GameObject dialogueTextObj = GameObject.Find("Dialogue Text");
+
+        nextText = GameObject.Find("Next Text");
+        dialogueGroupe = dialogueObj.GetComponent<CanvasGroup>();
+        dialogueText =dialogueTextObj.GetComponent<Text>();
     }
 
     // 대화 큐 초기화
@@ -69,6 +63,7 @@ public class DialogueManager : MonoBehaviour
         dialogueGroupe.alpha = 1; // 대화창을 보이도록 설정
         dialogueGroupe.blocksRaycasts = true; // 대화창이 사용자와 상호작용 가능하도록 설정
         playerMove.enabled = false; // 플레이어의 움직임을 비활성화
+        isInitialized= true;
         NextSentences(); // 첫 번째 문장 출력
     }
 
@@ -102,6 +97,11 @@ public class DialogueManager : MonoBehaviour
     // 매 프레임 호출되는 메서드
     void Update()
     {
+        if (!isInitialized)
+        {
+            return;
+        }
+
         // 대화가 모두 출력되면 "다음" 버튼 활성화
         if (dialogueText.text.Equals(currentSentence))
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPCsentence : MonoBehaviour
 {
+    
     // NPC가 말할 문장들을 저장하는 배열
     public string[] sentences;
 

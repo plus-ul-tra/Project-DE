@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    // Managers Singleton Pattern ????
-    // Game?? ?????? ?????????? ???? ?????? InputManager, GameManager, DataManager ?? ?? Manager ?????? ???? Script?? ????
+    // Managers Singleton Pattern 
+    
     private static Managers instance;
     private static Managers Instance { get { init(); return instance; } }
 
     // ?????? Manager ????
     InputManager input = new InputManager();
-    DialogueManager dialogue = new DialogueManager(); // 인스턴스 없이 참조만 할 수 있도록 하기 위해 이렇게 선언함
+    DialogueManager dialogue; 
     // GameManager gameManager = new GameManager();
 
     // ?????? Manager Instance ??
@@ -23,7 +23,8 @@ public class Managers : MonoBehaviour
     void Start()
     {
         init();
-        //dialogue = DialogueManager.instance; // DialogueManager의 인스턴스를 참조
+
+
     }
 
     
@@ -31,10 +32,6 @@ public class Managers : MonoBehaviour
     {
         input.OnUpdate();
     }
-
-
-
-
 
     // ?? ???????? ???????? Managers Script?? ????
     static void init()
@@ -50,6 +47,12 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(newObj);
             instance = newObj.GetComponent<Managers>();
+            if (instance.dialogue == null)
+            {
+                GameObject dialogueObj = new GameObject("DialogueManager");
+                dialogueObj.transform.parent = newObj.transform;  // Managers의 자식으로 설정
+                instance.dialogue = dialogueObj.AddComponent<DialogueManager>();
+            }
         }
 
     }
