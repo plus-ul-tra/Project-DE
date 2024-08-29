@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    // Managers Singleton Pattern Àû¿ë
-    // Game»ó ÇÏ³ª¸¸ Á¸ÀçÇÏµµ·Ï º¸Àå ±×·¡¼­ InputManager, GameManager, DataManager µî ÀÇ Manager »ı¼ºÀº ¿©±â Script¿¡ ÁøÇà
+    // Managers Singleton Pattern ????
+    // Game?? ?????? ?????????? ???? ?????? InputManager, GameManager, DataManager ?? ?? Manager ?????? ???? Script?? ????
     private static Managers instance;
     private static Managers Instance { get { init(); return instance; } }
 
-    // »ç¿ëÇÒ Manager »ı¼º
+    // ?????? Manager ????
     InputManager input = new InputManager();
+    DialogueManager dialogue = new DialogueManager(); // ì¸ìŠ¤í„´ìŠ¤ ì—†ì´ ì°¸ì¡°ë§Œ í•  ìˆ˜ ìˆë„ë¡ í•˜ê¸° ìœ„í•´ ì´ë ‡ê²Œ ì„ ì–¸í•¨
     // GameManager gameManager = new GameManager();
 
-    // »ç¿ëÇÒ Manager Instance È­
+    // ?????? Manager Instance ??
     public static InputManager Input { get { return Instance.input; } }
+    public static DialogueManager Dialogue { get { return Instance.dialogue; } }
     // public static GameManager GameManager {get{return Instance.gameManager;}}
     
     
     void Start()
     {
         init();
+        //dialogue = DialogueManager.instance; // DialogueManagerì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì°¸ì¡°
     }
 
     
@@ -29,7 +32,11 @@ public class Managers : MonoBehaviour
         input.OnUpdate();
     }
 
-    // ºó ¿ÀºêÁ§Æ® ¸¸µé¾î¼­ Managers Script¿¡ ¿¬°á
+
+
+
+
+    // ?? ???????? ???????? Managers Script?? ????
     static void init()
     {
         if(instance == null)
