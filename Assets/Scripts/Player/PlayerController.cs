@@ -13,15 +13,19 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     // Player Speed 
     [SerializeField] private float speed = 10.0f;
+    [SerializeField] private UIInventoryPage inventoryUI;
+    public int inventorySize = 10;
 
-    
+
     void Start()
     {
         // ????????
         Managers.Input.KeyAction -= OnKeyBoard;
-        Managers.Input.KeyAction += OnKeyBoard; 
+        Managers.Input.KeyAction += OnKeyBoard;
         //Managers.Input.MouseAction -= OnMouseClicked;
         //Managers.Input.MouseAction += OnMouseClicked;
+        // inventory √ ±‚»≠
+        inventoryUI.InitializeInventoryUI(inventorySize);
 
     }
     private void Awake()
@@ -67,9 +71,19 @@ public class PlayerController : MonoBehaviour
     // Key - ????
     private void OnKeyBoard()
     {
-        // ?? ??? ? ??
-        // here
-        //if() ~~{ }
+        // Inventory toggle
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if(inventoryUI.isActiveAndEnabled == false)
+            {
+                inventoryUI.Show();
+
+            }
+            else
+            {
+                inventoryUI.Hide();
+            }
+        }
 
 
     }
