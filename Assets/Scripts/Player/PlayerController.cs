@@ -6,15 +6,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Vector2 dir = Vector2.zero; // ???????? ????
+    Vector2 dir = Vector2.zero; 
     Vector2 mousePosition;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
     Animator anim;
     // Player Speed 
     [SerializeField] private float speed = 10.0f;
-    [SerializeField] private UIInventoryPage inventoryUI;
-    public int inventorySize = 10;
+    
 
 
     void Start()
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
         //Managers.Input.MouseAction -= OnMouseClicked;
         //Managers.Input.MouseAction += OnMouseClicked;
         // inventory √ ±‚»≠
-        inventoryUI.InitializeInventoryUI(inventorySize);
 
     }
     private void Awake()
@@ -38,12 +36,12 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        //?????? Key ?????? Player????
+        
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.y = Input.GetAxisRaw("Vertical");
-        // ???????? ?????? ????
+        
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log(mousePosition);
+        //Debug.Log(mousePosition);
     }
     private void FixedUpdate()
     {
@@ -71,19 +69,6 @@ public class PlayerController : MonoBehaviour
     // Key - ????
     private void OnKeyBoard()
     {
-        // Inventory toggle
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if(inventoryUI.isActiveAndEnabled == false)
-            {
-                inventoryUI.Show();
-
-            }
-            else
-            {
-                inventoryUI.Hide();
-            }
-        }
 
 
     }

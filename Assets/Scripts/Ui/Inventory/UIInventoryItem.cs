@@ -6,114 +6,82 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class UIInventoryItem : MonoBehaviour
-    ,IPointerClickHandler,IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler
+namespace Inventory.UI
 {
-    // Management of slot in Inventory
-    [SerializeField]
-    private Image itemImage;
-    [SerializeField]
-    private TMP_Text quantityText;
-    [SerializeField]
-    // select item border
-    private Image borderImage;
-    private bool empty = true;
+    public class UIInventoryItem : MonoBehaviour
+        , IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler
+    {
+        // Management of slot in Inventory
+        [SerializeField]
+        private Image itemImage;
+        [SerializeField]
+        private TMP_Text quantityText;
+        [SerializeField]
+        // select item border
+        private Image borderImage;
+        private bool empty = true;
 
-    public event Action<UIInventoryItem> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnRightMouseBtnClick;
-    private void Awake()
-    {
-        ResetData();
-        Deselect();
-    }
-    public void ResetData()
-    {
-        this.itemImage.gameObject.SetActive(false);
-        this.empty = true;
-    }
-    public void Deselect()
-    {
-        this.borderImage.enabled=false;
-    }
-    public void SetData(Sprite sprite, int quantity)
-    {
-        this.itemImage.gameObject.SetActive(true);
-        this.itemImage.sprite= sprite;
-        this.quantityText.text = quantity + "";
-        this.empty = false;
-    }
-    public void Select()
-    { // item that selected
-        borderImage.enabled = true;
-    }
-
-    //public void OnPointerclick(BaseEventData data)
-    //{
-    //    if (empty)
-    //    {
-    //        return;
-    //    }
-    //    PointerEventData pointerData = (PointerEventData)data;
-    //    if (pointerData.button == PointerEventData.InputButton.Right)
-    //    {
-    //        // Right
-    //        OnRightMouseBtnClick?.Invoke(this);
-    //    }
-    //    else
-    //    {
-    //        //Left
-    //        OnItemClicked?.Invoke(this);
-    //    }
-    //}
-
-    //public void OnBeginDrag()
-    //{
-    //    if (empty) { return; }
-    //    OnItemBeginDrag?.Invoke(this);
-    //}
-    //public void OnEndDrag()
-    //{
-    //    OnItemEndDrag?.Invoke(this);
-    //}
-    //public void OnDrop()
-    //{
-    //    OnItemDroppedOn?.Invoke(this);
-    //}
-
-    // Interface implement
-    public void OnPointerClick(PointerEventData pointerData)
-    {
-       
-        if (pointerData.button == PointerEventData.InputButton.Right)
+        public event Action<UIInventoryItem> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnRightMouseBtnClick;
+        private void Awake()
         {
-            // Right
-            OnRightMouseBtnClick?.Invoke(this);
+            ResetData();
+            Deselect();
         }
-        else
+        public void ResetData()
         {
-            //Left
-            OnItemClicked?.Invoke(this);
+            this.itemImage.gameObject.SetActive(false);
+            this.empty = true;
         }
-    }
+        public void Deselect()
+        {
+            this.borderImage.enabled = false;
+        }
+        public void SetData(Sprite sprite, int quantity)
+        {
+            this.itemImage.gameObject.SetActive(true);
+            this.itemImage.sprite = sprite;
+            this.quantityText.text = quantity + "";
+            this.empty = false;
+        }
+        public void Select()
+        { // item that selected
+            borderImage.enabled = true;
+        }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        if (empty) { return; }
-        OnItemBeginDrag?.Invoke(this);
-    }
+        public void OnPointerClick(PointerEventData pointerData)
+        {
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        OnItemEndDrag?.Invoke(this);
-    }
+            if (pointerData.button == PointerEventData.InputButton.Right)
+            {
+                // Right
+                OnRightMouseBtnClick?.Invoke(this);
+            }
+            else
+            {
+                //Left
+                OnItemClicked?.Invoke(this);
+            }
+        }
 
-    public void OnDrop(PointerEventData eventData)
-    {
-        OnItemDroppedOn?.Invoke(this);
-    }
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (empty) { return; }
+            OnItemBeginDrag?.Invoke(this);
+        }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        //이 시발련때문에 안되는 거였삼
-        //throw new NotImplementedException();
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            OnItemEndDrag?.Invoke(this);
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            OnItemDroppedOn?.Invoke(this);
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+
+        }
     }
 }
