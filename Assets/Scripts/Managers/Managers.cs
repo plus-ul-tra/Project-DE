@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    // Managers Singleton Pattern Àû¿ë
-    // Game»ó ÇÏ³ª¸¸ Á¸ÀçÇÏµµ·Ï º¸Àå ±×·¡¼­ InputManager, GameManager, DataManager µî ÀÇ Manager »ı¼ºÀº ¿©±â Script¿¡ ÁøÇà
+    // Managers Singleton Pattern 
+    
     private static Managers instance;
     private static Managers Instance { get { init(); return instance; } }
 
-    // »ç¿ëÇÒ Manager »ı¼º
+    // ?????? Manager ????
     InputManager input = new InputManager();
+    DialogueManager dialogue; 
     // GameManager gameManager = new GameManager();
 
-    // »ç¿ëÇÒ Manager Instance È­
+    // ?????? Manager Instance ??
     public static InputManager Input { get { return Instance.input; } }
+    public static DialogueManager Dialogue { get { return Instance.dialogue; } }
     // public static GameManager GameManager {get{return Instance.gameManager;}}
     
     
     void Start()
     {
         init();
+
+
     }
 
     
@@ -29,7 +33,7 @@ public class Managers : MonoBehaviour
         input.OnUpdate();
     }
 
-    // ºó ¿ÀºêÁ§Æ® ¸¸µé¾î¼­ Managers Script¿¡ ¿¬°á
+    // ?? ???????? ???????? Managers Script?? ????
     static void init()
     {
         if(instance == null)
@@ -43,6 +47,12 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(newObj);
             instance = newObj.GetComponent<Managers>();
+            if (instance.dialogue == null)
+            {
+                GameObject dialogueObj = new GameObject("DialogueManager");
+                dialogueObj.transform.parent = newObj.transform;  // Managersì˜ ìì‹ìœ¼ë¡œ ì„¤ì •
+                instance.dialogue = dialogueObj.AddComponent<DialogueManager>();
+            }
         }
 
     }
