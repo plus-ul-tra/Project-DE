@@ -11,7 +11,7 @@ namespace Inventory.Model
         // Information about items that recived
         [field: SerializeField]
         public bool IsStackable { get; set; }
-        public int ID => GetInstanceID();
+        public int ID => GetInstanceID(); // unity에서 고유 ID 제공.
 
         [field: SerializeField]
         public int MaxStackSize { get; set; } = 1;
