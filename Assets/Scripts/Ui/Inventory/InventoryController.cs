@@ -6,6 +6,7 @@ using UnityEngine;
 using Inventory.Model; // namespace 정의
 using Inventory.UI; // namespace 정의
 
+// Check user action, Update Model
 namespace Inventory
 {
     public class InventoryController : MonoBehaviour
@@ -100,7 +101,7 @@ namespace Inventory
                     inventoryUI.Show();
                     foreach (var item in inventoryData.GetCurrentInventoryState())  // return Dictionary
                     {
-                        inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
+                        inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity); // view update
                     }
                 }
                 else

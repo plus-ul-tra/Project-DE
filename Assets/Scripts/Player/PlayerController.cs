@@ -6,16 +6,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private PlayerInfo playerInfo;
     Vector2 dir = Vector2.zero; 
     Vector2 mousePosition;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
     Animator anim;
     // Player Speed 
-    [SerializeField] private float speed = 10.0f;
+    //private float speed = 10.0f;
     
-
-
     void Start()
     {
         // ????????
@@ -28,7 +27,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-
+        playerInfo = GetComponent<PlayerInfo>();    
         rigid = GetComponent<Rigidbody2D>();
         spriter =GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -36,7 +35,6 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.y = Input.GetAxisRaw("Vertical");
         
@@ -45,7 +43,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector2 nextVec = dir.normalized * speed * Time.fixedDeltaTime;
+        Vector2 nextVec = dir.normalized * playerInfo.stat.Speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 

@@ -6,8 +6,6 @@ using System.Linq;
 
 namespace Inventory.Model
 {
-
-
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject
     {
@@ -22,6 +20,7 @@ namespace Inventory.Model
             inventoryItems = new List<InventoryItem>();
             for (int i = 0; i < Size; i++)
             {
+                // Empty Struct로 초기화
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
             }
         }
@@ -29,13 +28,13 @@ namespace Inventory.Model
         public int AddItem(ItemSO item, int quantity)
         {
             if (item.IsStackable == false)
-            { // isnt stackable item
+            { // nonstackable
                 for (int i = 0; i < inventoryItems.Count; i++)
                 {
-                    while(quantity > 0 && IsInventoryFull() == false)
+                    while(quantity > 0 && IsInventoryFull() == false) //quantity가 0이상 and Full이 아닌 경우
                     {
-                        quantity -= AddItemToFirstFreeSlot(item, 1);
-                        
+                        quantity -= AddItemToFirstFreeSlot(item, 1); // quantity의 parameter가 1이면 하나씩 넣는다는 뜻
+
                     }
                     //bug
                     //quantity = AddStackableItem(item, quantity);
@@ -49,63 +48,64 @@ namespace Inventory.Model
             return quantity;
         }
 
-        private int AddItemToFirstFreeSlot(ItemSO item, int quantity)
-        {
+        private int AddItemToFirstFreeSlot(ItemSO item, int quantity) 
+        { // 새로운 slot에 item 구조체를 저장
+
             InventoryItem newItem = new InventoryItem
             {
                 item = item,
                 quantity = quantity,
             };
-            for(int i = 0; i< inventoryItems.Count; i++)
+            for(int i = 0; i< inventoryItems.Count; i++) //inventoryItems - slot
             {
-                if (inventoryItems[i].IsEmpty)
+                if (inventoryItems[i].IsEmpty) // i 번째 slot이 Empty인 경우
                 {
-                    inventoryItems[i] = newItem;
+                    inventoryItems[i] = newItem; // 아이템이 있는 구조체를 그곳에 삽입
                     return quantity;
                 }
             }
             return 0;
         }
 
-        private bool IsInventoryFull() // Check inventory to figure out empty or not
+        private bool IsInventoryFull() // 빈 슬롯이 하나도 없는 경우 true
         => inventoryItems.Where(item => item.IsEmpty).Any() == false; 
 
-        private int AddStackableItem(ItemSO item, int quantity)
+        private int AddStackableItem(ItemSO item, int quantity) //quantity -> 추가하려는 수량
         {
-            for(int i = 0; i < inventoryItems.Count; i++)
+            for(int i = 0; i < inventoryItems.Count; i++) //inventoryItems.Count slot 개수
             {
                 if (inventoryItems[i].IsEmpty)
                 {
                     continue;
                 }
                 
-                if (inventoryItems[i].item.ID == item.ID)
+                if (inventoryItems[i].item.ID == item.ID) // 동일한 ID의 아이템이 이미 inventory에 존재하는 경우
                 {
                     // left quantity can stack
                     int amoutPossibleToTake = inventoryItems[i].item.MaxStackSize - inventoryItems[i].quantity;
 
                     if(quantity > amoutPossibleToTake)
                     {
-                        //Possible to stack
+                       
                         inventoryItems[i] = inventoryItems[i].ChangeQuantity(inventoryItems[i].item.MaxStackSize);
-                        quantity -= amoutPossibleToTake;
+                        quantity -= amoutPossibleToTake; // 쌓아야 할 수량 업데이트 후 while 문으로
                     }
                     else
-                    {
-                        // Disable to stack
+                    {   // 남은 공간에 전부 쌓을 수 있는 경우 쌓고 return 0으로 함수 종료
                         inventoryItems[i] = inventoryItems[i].ChangeQuantity(inventoryItems[i].quantity + quantity);
                         InformAboutChange();
                         return 0;
                     }
                 }
-            }
+            }// 해당 for 문의 처음과 두번째 if 는 ID를 통해서 동일한 item이 있는지 찾는것 
+
             while(quantity > 0 && IsInventoryFull() == false)
             {
                 int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
                 quantity -= newQuantity;
                 AddItemToFirstFreeSlot(item, newQuantity); 
             }
-            return quantity;
+            return quantity; // quantity 는 대체로 0 이지만, inventoryFull 인 경우만 quantity != 0
         }
 
         public void AddItem(InventoryItem item)
@@ -148,10 +148,10 @@ namespace Inventory.Model
 
     [Serializable]
     public struct InventoryItem 
-    {
+    {   //실제 인벤토리에 저장되는 구조체.
         public int quantity;
         public ItemSO item;
-        public bool IsEmpty => item == null;
+        public bool IsEmpty => item == null; // item null이면 ture 반환
 
         // To modify Struct's Value
         public InventoryItem ChangeQuantity(int newQuantity)
