@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Inventory.Model
 {
-    
-    public abstract class ItemSO : ScriptableObject 
+
+    public abstract class ItemSO : ScriptableObject
     {
         // Information about items that recived
         [field: SerializeField]
@@ -23,6 +23,9 @@ namespace Inventory.Model
         [field: SerializeField]
         public Sprite ItemImage { get; set; }
 
+        [field: SerializeField]
+        public List<ItemParameter> DefualtParametersList { get; set; }
+
     }
 
     public interface IDestroyableItem
@@ -35,12 +38,27 @@ namespace Inventory.Model
         public string ActionName { get; }
         //public AudioClip actionSFX { get; }
 
-        bool PerformAction(GameObject character);
+        bool PerformAction(GameObject character, List<ItemParameter> itemState = null);
     }
-    [Serializable]
-    public class ModifierData
+    public enum ParameterType  
     {
-        public CharacterStateModifierSO stateModifier;
-        public float value;
+        PhyAttack,
+        Speed,
+        MagAttack,
+        Defense,
+        // 다른 파라미터 추가x
+    }
+
+    [Serializable]
+    public struct ItemParameter : IEquatable<ItemParameter>
+    {
+        public ItemParameterSO itemParameter;
+        public float value; // 값 추가
+        public ParameterType parameterType; // 열거형 추가
+
+        public bool Equals(ItemParameter other)
+        {
+            return other.itemParameter == itemParameter;
+        }
     }
 }

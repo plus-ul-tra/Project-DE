@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e0bcd4140639b047aca27d156057a84, type: 3}
-  m_Name: DurabilityParameter
+  m_Name: PhyAttack Parameter
   m_EditorClassIdentifier: 
-  <ParameterName>k__BackingField: Durability
+  <ParameterName>k__BackingField: PhyAttack
+  <value>k__BackingField: 20

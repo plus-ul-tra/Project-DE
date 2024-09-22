@@ -26,7 +26,7 @@ namespace Inventory.Model
             }
         }
 
-        public int AddItem(ItemSO item, int quantity)   // 아이템 추가
+        public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null)   // 아이템 추가
         {
             if (item.IsStackable == false)   // 스택형 아이템이 아닌경우 ( 소비형 아이템??)
             { // isnt stackable item
@@ -108,6 +108,22 @@ namespace Inventory.Model
             return quantity;
         }
 
+
+        public void RemoveItem(int itemIndex, int amount)
+        {
+            if (inventoryItems.Count > itemIndex)
+            {
+                if (inventoryItems[itemIndex].IsEmpty)
+                    return;
+                int reminder = inventoryItems[itemIndex].quantity - amount;
+                if (reminder <= 0)
+                    inventoryItems[itemIndex] = InventoryItem.GetEmptyItem();
+                else
+                    inventoryItems[itemIndex] = inventoryItems[itemIndex].ChangeQuantity(reminder);
+
+                InformAboutChange();
+            }
+        }
         public void AddItem(InventoryItem item)
         {
             AddItem(item.item, item.quantity);  
@@ -151,6 +167,7 @@ namespace Inventory.Model
     {
         public int quantity;
         public ItemSO item;
+        public List<ItemParameter> itemState;
         public bool IsEmpty => item == null;
 
         // To modify Struct's Value
@@ -160,6 +177,7 @@ namespace Inventory.Model
             {
                 item = this.item,
                 quantity = newQuantity,
+                itemState = new List<ItemParameter>(this.itemState)
             };
         }
 
@@ -168,6 +186,7 @@ namespace Inventory.Model
             {
                 item = null,
                 quantity = 0,
+                itemState = new List<ItemParameter>()
             };
     }
 }

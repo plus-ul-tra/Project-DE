@@ -11172,7 +11172,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <InventoryItem>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: acedcc99c0cf8bd4f82fd3eef6ebfca8,
+      objectReference: {fileID: 11400000, guid: 4ed16d7385885c841a4bfb177d9ff536,
         type: 2}
     - target: {fileID: 7987184630795524294, guid: 407942372cbbf82499a0dffae690c18b,
         type: 3}
@@ -11338,9 +11338,11 @@ GameObject:
   - component: {fileID: 1897355491}
   - component: {fileID: 1897355490}
   - component: {fileID: 1897355492}
+  - component: {fileID: 1897355495}
   - component: {fileID: 1897355487}
   - component: {fileID: 1897355493}
   - component: {fileID: 1897355494}
+  - component: {fileID: 1897355496}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -11360,7 +11362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d33665e25797a64fa7ae8951aa3fcc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
 --- !u!212 &1897355488
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11525,6 +11526,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 6b166c049ecb81d4cbdcb887614e7f76, type: 2}
+--- !u!114 &1897355495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897355486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0581f6008daeb54b95aa3c6e9d47d33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  job: 0
+--- !u!114 &1897355496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897355486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2113d2701ce936845a45bc7bc3166bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: 6b166c049ecb81d4cbdcb887614e7f76, type: 2}
+  parametersToModify:
+  - itemParameter: {fileID: 11400000, guid: 57231aa50bf04dc4f859b1963386d468, type: 2}
+    value: -10
+  - itemParameter: {fileID: 11400000, guid: bdb4f73f111fe0f46819dc79b46dd207, type: 2}
+    value: 20
+  itemCurrentState: []
 --- !u!1 &1912528046
 GameObject:
   m_ObjectHideFlags: 0
