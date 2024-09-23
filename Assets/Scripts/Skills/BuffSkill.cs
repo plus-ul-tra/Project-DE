@@ -15,12 +15,7 @@ public class BuffSkill : Skill
     
     public override void ActivateSkill(GameObject user) 
     {
-        Animator animator = user.GetComponent<Animator>();
-        if (animator != null && skillAnimation != null)
-        {
-            animator.Play(skillAnimation.name);
-            
-        }
+        Debug.Log("스킬 A 발동");
     }
 
 }
