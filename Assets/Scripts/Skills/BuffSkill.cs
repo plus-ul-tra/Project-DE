@@ -15,7 +15,8 @@ public class BuffSkill : Skill
     
     public override void ActivateSkill(GameObject user) 
     {
-        Debug.Log("스킬 A 발동");
+        Debug.Log($"{SkillName} 발동");
+        //발동효과
     }
 
 }

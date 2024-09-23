@@ -5,21 +5,21 @@ using UnityEngine;
 public class SkillAction : MonoBehaviour
 {
 
-    public List<BuffSkill> skillList = new List<BuffSkill>();
+    public List<Skill> skillList = new List<Skill>();
     private Dictionary<Skill, float> skillCooldowns = new Dictionary<Skill, float>();
     private GameObject player;
 
     private void Awake()
     {
         player = gameObject;
+        foreach (var skill in skillList)
+        {
+            skillCooldowns[skill] = skill.coolTime; // Dictionary 쿨타임 초기화 
+        }
     }
     private void Start()
     {
-        // 스킬마다 쿨타임 초기화
-        foreach (var skill in skillList)
-        {
-            skillCooldowns[skill] = skill.coolTime; // Dictionary 쿨타임 초기화 (즉시 사용 가능)
-        }
+        
     }
     private void Update()
     {
@@ -34,10 +34,10 @@ public class SkillAction : MonoBehaviour
             }
         }
 
-        ActivateAvailableSkills();
+        AvailableSkills(); //업데이트 동안 계속 skill check
     }
 
-    private void ActivateAvailableSkills()
+    private void AvailableSkills()
     {
         foreach (var skill in skillList)
         {
@@ -45,29 +45,11 @@ public class SkillAction : MonoBehaviour
             if (skillCooldowns[skill] <= 0)
             {
                 skill.ActivateSkill(player);
-                Debug.Log($"{skill.SkillName} 발동");
 
                 // 스킬 발동 후 다시 쿨타임 재설정
                 skillCooldowns[skill] = skill.coolTime;
             }
         }
     }
-    //public void UseSkill(int index)
-    //{
-    //    if (index >= 0 && index < skillList.Count)
-    //    {
-    //        Skill skill = skillList[index];
-
-    //        // 스킬의 쿨타임이 끝났는지 확인
-    //        if (skillCooldowns[skill] <= 0)
-    //        {
-    //            // 스킬 발동
-    //            skill.ActivateSkill(player);
-    //            Debug.Log("Fury 발동");
-    //            // 스킬 쿨타임 설정
-    //            skillCooldowns[skill] = skill.coolTime;
-    //        }
-            
-    //    }
-    //}
+   
 }
