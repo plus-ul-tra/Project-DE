@@ -12,5 +12,5 @@ public abstract class Skill : ScriptableObject
     [field: SerializeField]
     public float coolTime { get; set; }
 
-    public abstract void ActivateSkill(GameObject user);
+    public abstract bool ActivateSkill(GameObject user);
 }

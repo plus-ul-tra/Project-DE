@@ -11463,6 +11463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillList:
   - {fileID: 11400000, guid: 2842da051c7e0784d84130f6b40f5223, type: 2}
+  - {fileID: 11400000, guid: 7fb4add8e44b20141afdd5ea198976d0, type: 2}
 --- !u!1 &1912528046
 GameObject:
   m_ObjectHideFlags: 0
