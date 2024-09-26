@@ -9,19 +9,14 @@ public class BuffSkill : Skill
     [field: SerializeField]
     //지속시간
     public float duration;
-    [field: SerializeField]
-    public float afterDelay; // 스킬 후딜, 후딜이 끝나면 다음 스킬 발동 (스킬이펙트가 겹치는 걸 방지하기 위함 임)
+    // 스킬 후딜, 후딜이 끝나면 다음 스킬 발동 (스킬이펙트가 겹치는 걸 방지하기 위함 임)
     [field: SerializeField]
     //public Sprite[] skillSprites;
     public AnimationClip skillAnimation;
     
-    public override bool ActivateSkill(GameObject user) 
+    public override void ActivateSkill(GameObject user) 
     {
         Debug.Log($"{SkillName} 발동");
-        //user.GetComponent<MonoBehaviour>().StartCoroutine(SkillDelay(user));
-        //Debug.Log($"{SkillName}대기완료");
-         return true;
-        
     }
 
     //private IEnumerator SkillDelay(GameObject user)

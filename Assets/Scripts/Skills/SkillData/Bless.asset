@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SkillName>k__BackingField: Bless
   <hasCooltime>k__BackingField: 1
-  <coolTime>k__BackingField: 8
+  <coolTime>k__BackingField: 5
+  afterDelay: 2
   duration: 5
-  afterDelay: 4
   skillAnimation: {fileID: 0}

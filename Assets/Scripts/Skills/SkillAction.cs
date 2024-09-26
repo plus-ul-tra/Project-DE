@@ -7,19 +7,21 @@ public class SkillAction : MonoBehaviour
 
     public List<Skill> skillList = new List<Skill>();
     private Dictionary<Skill, float> skillCooldowns = new Dictionary<Skill, float>();
+    private Queue<Skill> readyQueue = new Queue<Skill>();
     private GameObject player;
-    private bool nextSkillAvailable;
+    private bool skillActive = false; //현재 스킬 발동 중 = true
     public float skillStartDelay = 1.0f; // 맨처음 스킬 시작전 딜레이
     
     private void Awake()
     {
         player = gameObject;
-        nextSkillAvailable= true;
+        skillActive= true;
         foreach (var skill in skillList)
         {
             skillCooldowns[skill] = skill.coolTime; // Dictionary 쿨타임 초기화 
         }
     }
+
     private void Start()
     {
         StartCoroutine(FirstSkillActivate());
@@ -27,17 +29,26 @@ public class SkillAction : MonoBehaviour
     private IEnumerator FirstSkillActivate()
     {
         yield return new WaitForSeconds(skillStartDelay);
+
         foreach(var skill in skillList)
         {
-            if(nextSkillAvailable == true)
-            {
-                nextSkillAvailable = false;
-                nextSkillAvailable = skill.ActivateSkill(player);
-                skillCooldowns[skill] = skill.coolTime;
-            }
-            
+           
+            readyQueue.Enqueue(skill); // 처음엔 모두 발동가능하니 큐에 추가
         }
-        
+        StartCoroutine(SkillSequence());
+    }
+    private IEnumerator SkillSequence()
+    {
+        while ( readyQueue.Count > 0)
+        {
+            var skill = readyQueue.Dequeue();
+            skillActive = true;
+            skill.ActivateSkill(player);
+            skillCooldowns[skill] = skill.coolTime;
+
+            yield return new WaitForSeconds(skill.afterDelay);
+            skillActive= false;
+        }
     }
     private void Update()
     {
@@ -48,24 +59,20 @@ public class SkillAction : MonoBehaviour
                 skillCooldowns[skill] -= Time.deltaTime;
             }
         }
-
-        AvailableBuffSkills(); //업데이트 동안 계속 skill check , update 자체에서 코루틴을 호출한다?
-    }
-
-    private void AvailableBuffSkills()
-    {
         foreach (var skill in skillList)
         {
-            // 쿨타임이 0 이하인 스킬만 발동
-            if (skillCooldowns[skill] <= 0 && nextSkillAvailable == true)
+            if (skillCooldowns[skill] <= 0 && !readyQueue.Contains(skill))
             {
-                nextSkillAvailable = false;
-                nextSkillAvailable = skill.ActivateSkill(player);
-                
-                // 스킬 발동 후 다시 쿨타임 재설정
-                skillCooldowns[skill] = skill.coolTime;
+                readyQueue.Enqueue(skill); // 쿨타임이 끝난 스킬을 큐에 추가
             }
         }
+        if(!skillActive && readyQueue.Count > 0 )
+        {
+            StartCoroutine(SkillSequence());
+        }
+         
     }
+
+   
    
 }
