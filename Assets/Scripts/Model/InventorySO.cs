@@ -6,8 +6,6 @@ using System.Linq;
 
 namespace Inventory.Model
 {
-
-
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject
     {

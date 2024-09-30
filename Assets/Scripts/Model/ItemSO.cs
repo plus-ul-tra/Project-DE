@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Inventory.Model
 {
-
     public abstract class ItemSO : ScriptableObject
     {
         // Information about items that recived
@@ -42,11 +41,19 @@ namespace Inventory.Model
     }
     public enum ParameterType  
     {
+        MaxHP,
         PhyAttack,
-        Speed,
         MagAttack,
-        Defense,
-        // 다른 파라미터 추가x
+        PhyDeffense,
+        MagDeffense,
+        Speed,
+        CriticalRate,
+        CriticalDamage,
+        SkillRange,
+        SkillCoolDown,
+        HealRate,
+        HpDrainRate,
+        
     }
 
     [Serializable]

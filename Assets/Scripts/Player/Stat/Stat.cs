@@ -19,10 +19,7 @@ public class Stat
     public float HealRate { get;set;} // 회복력
     public  float HpDrainRate { get;set;} // 체력흡수
 
-    public Stat()
-    {
-
-    }
+    
     public Stat(PlayerJob job, string name, float maxHP, float phyAttack, float magAttack, float phyDeffense, float magDeffense, float speed, float criticalRate, float criticalDamage, float skillRange, float skillCoolDown, float healRate, float hpDrainRate)
     {
         this.job = job;
@@ -40,7 +37,10 @@ public class Stat
         this.HealRate = healRate;
         this.HpDrainRate = hpDrainRate;
     }
+    public Stat()
+    {
 
+    }
     public Stat StatInitialize(PlayerJob jobCode)
     {// Job에 따른 Stat 초기화
         Stat stat = null;

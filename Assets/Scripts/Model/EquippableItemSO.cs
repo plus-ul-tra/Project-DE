@@ -3,23 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Inventory.Model 
-{
+{   
     [CreateAssetMenu]
     public class EquippableItemSO : ItemSO, IDestroyableItem, IItemAction
     {
         public string ActionName => "Equip";
+        [field: SerializeField]
+        public EquipmentType equipmentType;
 
-        public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
+        // 착용가능 직업 추가
+
+        // 세트효과 or class 지정을 위한 태그 추가
+
+        public bool PerformAction(GameObject player, List<ItemParameter> itemState = null)
         {
-            AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();
-            if(weaponSystem != null)
+            AgentEquipment equipmentSystem = player.GetComponent<AgentEquipment>();
+            if(equipmentSystem != null)
             {
-                weaponSystem.SetWeapon(this, itemState == null ? DefualtParametersList : itemState);
+                equipmentSystem.SetEquipment(this, itemState == null ? DefualtParametersList : itemState); //
                 return true;
             }
-
-
             return false;
         }
     }
+}
+public enum EquipmentType
+{
+    Weapon,
+    Hat,
+    armor,
+    Phants,
+    Cape,
+    Glove,
+    Shose,
+    Accessory,
+
 }

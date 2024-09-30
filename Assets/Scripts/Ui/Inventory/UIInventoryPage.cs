@@ -66,7 +66,7 @@ namespace Inventory.UI
             {
                 return;
             }
-            OnItemActionRequested?.Invoke(index);
+            OnItemActionRequested?.Invoke(index); //ÀåÂø ºÎ
         }
 
         private void HandleEndDrag(UIInventoryItem inventoryItemUI)
