@@ -6,24 +6,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Vector2 dir = Vector2.zero; 
+    Vector2 dir = Vector2.zero; // ???????? ????
     Vector2 mousePosition;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
     Animator anim;
     // Player Speed 
     [SerializeField] private float speed = 10.0f;
+
     
-
-
     void Start()
     {
         // ????????
         Managers.Input.KeyAction -= OnKeyBoard;
-        Managers.Input.KeyAction += OnKeyBoard;
+        Managers.Input.KeyAction += OnKeyBoard; 
         //Managers.Input.MouseAction -= OnMouseClicked;
         //Managers.Input.MouseAction += OnMouseClicked;
-        // inventory √ ±‚»≠
 
     }
     private void Awake()
@@ -36,12 +34,11 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        
+        //?????? Key ?????? Player????
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.y = Input.GetAxisRaw("Vertical");
-        
+        // ???????? ?????? ????
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Debug.Log(mousePosition);
     }
     private void FixedUpdate()
     {
@@ -69,6 +66,9 @@ public class PlayerController : MonoBehaviour
     // Key - ????
     private void OnKeyBoard()
     {
+        // ?? ??? ? ??
+        // here
+        //if() ~~{ }
 
 
     }
