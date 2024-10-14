@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d44e3eb97ebcb6408632d1d891c220b, type: 3}
-  m_Name: Sword
+  m_Name: Hat
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: Sword
-  <Description>k__BackingField: PhyAttack +20
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: dd3631e297d7ef341bfc48751be7ca9d,
+  <Name>k__BackingField: Hat
+  <Description>k__BackingField: Hat
+  <ItemImage>k__BackingField: {fileID: 362616440, guid: 0d5e657ee5a074e4baa53d5b248a01d2,
     type: 3}
   <DefualtParametersList>k__BackingField:
-  - itemParameter: {fileID: 11400000, guid: 511beddd1f55706478def00200271808, type: 2}
-    value: 2
-    parameterType: 5
-  equipmentType: 0
+  - itemParameter: {fileID: 11400000, guid: 7e3ad4d399d0f0040896df98192fcf2e, type: 2}
+    value: 100
+    parameterType: 2
+  equipmentType: 1

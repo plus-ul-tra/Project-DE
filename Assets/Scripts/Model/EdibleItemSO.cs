@@ -14,13 +14,20 @@ namespace Inventory.Model
         //public AudioClip actionSFX => {get; private set;}
 
         // Affect to Player
-        public bool PerformAction(GameObject character)
+        public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
         {
             foreach(ModifierData data in modifiersData)
             {
                 data.stateModifier.AffectCharacter(character, data.value);
             }
             return true;
+        }
+
+        [SerializeField]
+        public class ModifierData
+        {
+            public CharacterStateModifierSO stateModifier;
+            public float value;
         }
     }
 
