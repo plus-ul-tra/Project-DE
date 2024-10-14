@@ -1,4 +1,5 @@
 using Inventory.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class PlayerInfo : MonoBehaviour
 {
     public PlayerJob job;
     public Stat stat;
-
+    public event Action OnStatChanged;
     private void Awake()
     {
         stat = new Stat(); // Stat 인스터스화
@@ -60,6 +61,8 @@ public class PlayerInfo : MonoBehaviour
             }
 
         }
+        //delegate로 선언
+        OnStatChanged?.Invoke();
     }
 
     //public void ModifyStat(List<BuffSkillParameter> skillParameters, int flag)

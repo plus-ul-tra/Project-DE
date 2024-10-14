@@ -20,7 +20,7 @@ namespace Inventory.Model
             AgentEquipment equipmentSystem = player.GetComponent<AgentEquipment>();
             if(equipmentSystem != null)
             {
-                equipmentSystem.SetEquipment(this, itemState == null ? DefualtParametersList : itemState); //
+                equipmentSystem.SetEquipment(this, itemState == null ? DefualtParametersList : itemState, equipmentType); //
                 return true;
             }
             return false;
@@ -31,7 +31,7 @@ public enum EquipmentType
 {
     Weapon,
     Hat,
-    armor,
+    Armor,
     Phants,
     Cape,
     Glove,
