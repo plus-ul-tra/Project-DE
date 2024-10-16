@@ -6,45 +6,43 @@ using System.Linq;
 
 namespace Inventory.Model
 {
-
-
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject
     {
         [SerializeField]
-        private List<InventoryItem> inventoryItems;
+        private List<InventoryItem> inventoryItems;  // 인벤토리 아이템리스트
         [field: SerializeField]
-        public int Size { get; private set; } = 10;
-        public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated; 
+        public int Size { get; private set; } = 10;   // 슬룻 크기를 10개로 설정
+        public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;    //인벤토리 업데이트 함수
 
-        public void Initialize()
-        {
-            inventoryItems = new List<InventoryItem>();
+        public void Initialize()  // 인벤토리 초기화 함수
+        { 
+            inventoryItems = new List<InventoryItem>();  //인벤토리 아이템리스트를 가져옴
             for (int i = 0; i < Size; i++)
             {
-                inventoryItems.Add(InventoryItem.GetEmptyItem());
+                inventoryItems.Add(InventoryItem.GetEmptyItem());  // 사이즈 크기만큼 빈슬룻을 추가
             }
         }
 
-        public int AddItem(ItemSO item, int quantity)
+        public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null)   // 아이템 추가
         {
-            if (item.IsStackable == false)
+            if (item.IsStackable == false)   // 스택형 아이템이 아닌경우 ( 소비형 아이템??)
             { // isnt stackable item
-                for (int i = 0; i < inventoryItems.Count; i++)
+                for (int i = 0; i < inventoryItems.Count; i++)  
                 {
-                    while(quantity > 0 && IsInventoryFull() == false)
+                    while(quantity > 0 && IsInventoryFull() == false)  // 수량이 하나 이상이면서 인벤토리가 가득차있지 않다면
                     {
-                        quantity -= AddItemToFirstFreeSlot(item, 1);
+                        quantity -= AddItemToFirstFreeSlot(item, 1); // 빈슬룻 수량에서 -1 하고 빈 첫번째 슬룻에 아이템 추가
                         
                     }
                     //bug
                     //quantity = AddStackableItem(item, quantity);
-                    InformAboutChange(); // nonStackable == only have 1
-                    return quantity;
+                    InformAboutChange(); // nonStackable == only have 1  // 변경된 현재 인벤토리 상태 적용
+                    return quantity; // 남은 빈슬룻 수량 반환
                     
                 }
             }
-            quantity = AddStackableItem(item,quantity);
+            quantity = AddStackableItem(item,quantity); // 빈슬룻 수량 = 0 
             InformAboutChange();
             return quantity;
         }
@@ -108,6 +106,22 @@ namespace Inventory.Model
             return quantity;
         }
 
+
+        public void RemoveItem(int itemIndex, int amount)
+        {
+            if (inventoryItems.Count > itemIndex)
+            {
+                if (inventoryItems[itemIndex].IsEmpty)
+                    return;
+                int reminder = inventoryItems[itemIndex].quantity - amount;
+                if (reminder <= 0)
+                    inventoryItems[itemIndex] = InventoryItem.GetEmptyItem();
+                else
+                    inventoryItems[itemIndex] = inventoryItems[itemIndex].ChangeQuantity(reminder);
+
+                InformAboutChange();
+            }
+        }
         public void AddItem(InventoryItem item)
         {
             AddItem(item.item, item.quantity);  
@@ -151,6 +165,7 @@ namespace Inventory.Model
     {
         public int quantity;
         public ItemSO item;
+        public List<ItemParameter> itemState;
         public bool IsEmpty => item == null;
 
         // To modify Struct's Value
@@ -160,6 +175,7 @@ namespace Inventory.Model
             {
                 item = this.item,
                 quantity = newQuantity,
+                itemState = new List<ItemParameter>(this.itemState)
             };
         }
 
@@ -168,6 +184,7 @@ namespace Inventory.Model
             {
                 item = null,
                 quantity = 0,
+                itemState = new List<ItemParameter>()
             };
     }
 }

@@ -33,7 +33,7 @@ public class Managers : MonoBehaviour
         input.OnUpdate();
     }
 
-    // ?? ???????? ???????? Managers Script?? ????
+    // Generate Managers to GameObject 
     static void init()
     {
         if(instance == null)
@@ -47,6 +47,8 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(newObj);
             instance = newObj.GetComponent<Managers>();
+
+            // DialogueManager를 singleton으로?
             if (instance.dialogue == null)
             {
                 GameObject dialogueObj = new GameObject("DialogueManager");

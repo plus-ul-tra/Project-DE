@@ -22,7 +22,7 @@ public class MouseFollower : MonoBehaviour
 
     void Update()
     {
-        // ?what? need code check 
+        
         Vector2 position;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             (RectTransform)canvas.transform,Input.mousePosition,

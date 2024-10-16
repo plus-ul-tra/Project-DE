@@ -7,7 +7,8 @@ public class Item : MonoBehaviour
 
 
     [field:SerializeField]
-    public ItemSO InventoryItem { get; private set; }
+    public ItemSO InventoryItem { get; private set; } // Scriptable Object를 MonoBehaviour에서 인스턴스화
+
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
     //[SerializeField]

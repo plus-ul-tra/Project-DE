@@ -6,6 +6,7 @@ using UnityEngine;
 using Inventory.Model; // namespace Á¤ÀÇ
 using Inventory.UI; // namespace Á¤ÀÇ
 
+// Check user action, Update Model
 namespace Inventory
 {
     public class InventoryController : MonoBehaviour
@@ -30,7 +31,7 @@ namespace Inventory
             inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
             inventoryUI.OnSwapItems += HandleSwapItems;
             inventoryUI.OnStartDragging += HandleDragging;
-            inventoryUI.OnItemActionRequested += HandleItemActionRequest;
+            inventoryUI.OnItemActionRequested += HandleItemActionRequest; //ÀåÂø ºÎ
         }
         private void PrepareInventoryData()
         {
@@ -57,8 +58,21 @@ namespace Inventory
 
         }
 
-        private void HandleItemActionRequest(int itemIndex)
+        private void HandleItemActionRequest(int itemIndex) //ÀåÂø µ¿ÀÛ
         {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
+            IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+            if(destroyableItem != null)
+            {
+                inventoryData.RemoveItem(itemIndex, 1);
+            }
+            IItemAction itemAction = inventoryItem.item as IItemAction;
+            if(itemAction != null)
+            {
+                itemAction.PerformAction(gameObject, inventoryItem.itemState); //ÀåÂø?
+            }
 
         }
 
@@ -90,7 +104,7 @@ namespace Inventory
             inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, item.Description);
         }
 
-        private void OnKeyBoardForInventory()
+        private void OnKeyBoardForInventory() // Inventory UI Ã¢
         {
             // Inventory toggle
             if (Input.GetKeyDown(KeyCode.I))
@@ -100,7 +114,7 @@ namespace Inventory
                     inventoryUI.Show();
                     foreach (var item in inventoryData.GetCurrentInventoryState())  // return Dictionary
                     {
-                        inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
+                        inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity); // view update
                     }
                 }
                 else
