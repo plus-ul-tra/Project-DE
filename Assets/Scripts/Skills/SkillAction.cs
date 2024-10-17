@@ -11,7 +11,7 @@ public class SkillAction : MonoBehaviour
     private GameObject player;
     private bool skillActive = false; //현재 스킬 발동 중 = true
     public float skillStartDelay = 1.0f; // 맨처음 스킬 시작전 딜레이
-    
+    public PlayerInfo playerInfo;
     private void Awake()
     {
         player = gameObject;
@@ -20,8 +20,8 @@ public class SkillAction : MonoBehaviour
         {
             skillCooldowns[skill] = skill.coolTime; // Dictionary 쿨타임 초기화 
         }
+        playerInfo = player.GetComponent<PlayerInfo>();
     }
-
     private void Start()
     {
         StartCoroutine(FirstSkillActivate());
@@ -43,7 +43,9 @@ public class SkillAction : MonoBehaviour
         {
             var skill = readyQueue.Dequeue();
             skillActive = true;
-            skill.ActivateSkill(player);
+
+            skill.ActivateSkill(player,playerInfo); //실제 스킬 발동
+
             skillCooldowns[skill] = skill.coolTime;
 
             yield return new WaitForSeconds(skill.afterDelay);
@@ -73,6 +75,4 @@ public class SkillAction : MonoBehaviour
          
     }
 
-   
-   
 }

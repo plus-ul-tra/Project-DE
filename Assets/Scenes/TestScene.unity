@@ -13226,6 +13226,7 @@ GameObject:
   - component: {fileID: 1897355493}
   - component: {fileID: 1897355494}
   - component: {fileID: 1897355496}
+  - component: {fileID: 1897355497}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -13435,6 +13436,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 6b166c049ecb81d4cbdcb887614e7f76, type: 2}
+--- !u!114 &1897355497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897355486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744348bb825df5f4f84c0fbd776f29e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillList:
+  - {fileID: 11400000, guid: 7fb4add8e44b20141afdd5ea198976d0, type: 2}
+  - {fileID: 11400000, guid: 2842da051c7e0784d84130f6b40f5223, type: 2}
+  skillStartDelay: 1
 --- !u!1 &1912528046
 GameObject:
   m_ObjectHideFlags: 0
@@ -13769,22 +13786,22 @@ PrefabInstance:
     - target: {fileID: 1720405175022501188, guid: ee8e92cc1dfd323418d6375e68252cef,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1720405175022501188, guid: ee8e92cc1dfd323418d6375e68252cef,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1720405175022501188, guid: ee8e92cc1dfd323418d6375e68252cef,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 25.8117
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1720405175022501188, guid: ee8e92cc1dfd323418d6375e68252cef,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -16.71725
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4402075599637090849, guid: ee8e92cc1dfd323418d6375e68252cef,
         type: 3}

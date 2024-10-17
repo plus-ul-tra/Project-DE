@@ -53,7 +53,6 @@ namespace Inventory.Model
         SkillCoolDown,
         HealRate,
         HpDrainRate,
-        
     }
 
     [Serializable]

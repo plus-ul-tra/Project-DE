@@ -15,6 +15,10 @@ MonoBehaviour:
   <SkillName>k__BackingField: Fury
   <hasCooltime>k__BackingField: 1
   <coolTime>k__BackingField: 10
-  duration: 5
   afterDelay: 2
+  duration: 5
   skillAnimation: {fileID: 7400000, guid: dfaceb50736101244a9c0d6aedd9d78d, type: 2}
+  <Parameters>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 511beddd1f55706478def00200271808, type: 2}
+    value: 10
+    parameterType: 5

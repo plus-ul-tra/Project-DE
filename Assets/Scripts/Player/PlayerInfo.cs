@@ -62,9 +62,10 @@ public class PlayerInfo : MonoBehaviour
 
         }
         //delegate로 선언
-        OnStatChanged?.Invoke();
+        OnStatChanged?.Invoke(); // StatUI 조작
     }
 
+    // 필요 시 ModifyStat 오버로딩해서 사용
     //public void ModifyStat(List<BuffSkillParameter> skillParameters, int flag)
     //{
 
