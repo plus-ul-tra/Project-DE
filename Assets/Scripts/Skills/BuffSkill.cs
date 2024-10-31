@@ -17,7 +17,7 @@ public class BuffSkill : Skill,IStatHandler
     public AnimationClip skillAnimation;
     
     [field: SerializeField]
-    public List<ItemParameter> Parameters { get; set;}
+    public List<ItemParameter> Parameters { get; set;} //Parameter 사용
     
     public override void ActivateSkill(GameObject user, PlayerInfo playerInfo) 
     {
@@ -27,7 +27,7 @@ public class BuffSkill : Skill,IStatHandler
         // 스텟변조
         // RPC
     }
-    public void RemoveSkill(GameObject user, PlayerInfo playerInfo)
+    public void RemoveSkill(PlayerInfo playerInfo) //GameObject user 파라미터는 추후 필요하면 고려
     {
         Debug.Log($"{SkillName} 효과 해제");
         StatModifyWithSkill(Parameters, playerInfo, -1);
