@@ -29,7 +29,7 @@ public class BuffSkill : Skill,IStatHandler
     }
     public void RemoveSkill(PlayerInfo playerInfo) //GameObject user 파라미터는 추후 필요하면 고려
     {
-        Debug.Log($"{SkillName} 효과 해제");
+        Debug.Log($"{SkillName} 해제");
         StatModifyWithSkill(Parameters, playerInfo, -1);
 
     }

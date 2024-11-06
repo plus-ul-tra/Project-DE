@@ -12,7 +12,7 @@ namespace Inventory.Model
         [SerializeField]
         private List<InventoryItem> inventoryItems;  // 인벤토리 아이템리스트
         [field: SerializeField]
-        public int Size { get; private set; } = 10;   // 슬룻 크기를 10개로 설정
+        public int Size { get; private set; } = 10;   // 슬룻 크기
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;    //인벤토리 업데이트 함수
 
         public void Initialize()  // 인벤토리 초기화 함수

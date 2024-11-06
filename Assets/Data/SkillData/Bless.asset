@@ -16,9 +16,10 @@ MonoBehaviour:
   <hasCooltime>k__BackingField: 1
   <coolTime>k__BackingField: 5
   afterDelay: 2
+  playerInfo: {fileID: 0}
   duration: 5
   skillAnimation: {fileID: 0}
   <Parameters>k__BackingField:
   - itemParameter: {fileID: 11400000, guid: d5c8aa6dc074efd4691a855e92a35ddc, type: 2}
-    value: 100
+    value: 10
     parameterType: 1

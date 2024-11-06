@@ -21,9 +21,7 @@ public interface IStatHandler {
     public List<ItemParameter> Parameters { get; set; }
     void StatModifyWithSkill(List<ItemParameter> Parameters, PlayerInfo playerinfo,int flag);
 
-} 
-
-
+}
 public interface IResourceEffect
 {
     //아트 연출 구현

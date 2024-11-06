@@ -55,7 +55,7 @@ namespace Inventory.UI
             {
                 // Right
                 OnRightMouseBtnClick?.Invoke(this);
-                Debug.Log("Click Action");
+                
             }
             else
             {
