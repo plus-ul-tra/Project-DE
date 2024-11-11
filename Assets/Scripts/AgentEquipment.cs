@@ -28,6 +28,7 @@ public class AgentEquipment : MonoBehaviour
             inventoryData.AddItem(currentEquipment, 1, itemCurrentStates[itemType]);
             UnequipItem(currentEquipment, itemCurrentStates[itemType]); // 장착 해제
         }
+        
 
         // 새 장비 아이템 장착
         //Dictionary에 추가
